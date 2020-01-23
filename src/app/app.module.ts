@@ -5,21 +5,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { createCustomElement } from '@angular/elements';
 
-import { MenuComponent } from './menu/menu.component';
-
+import { NavbarComponent } from './navbar/navbar.component';
+import { SideBarComponent } from './side-bar/side-bar.component';
+import { RouterModule } from '@angular/router';
+import {routes} from './side-bar/side-bar-routing.module'
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    NavbarComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    // RouterModule.forChild(routes),
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    MenuComponent
+    NavbarComponent,
+    SideBarComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -29,7 +34,10 @@ export class AppModule {
   constructor(private injector: Injector) {
   }
   ngDoBootstrap() {
-    const myCustomElement = createCustomElement(MenuComponent, { injector: this.injector });
+    const myCustomElement = createCustomElement(NavbarComponent, { injector: this.injector });
     customElements.define('component-rr-navbar', myCustomElement);
+
+    const SideBarElement = createCustomElement(SideBarComponent, { injector: this.injector });
+    customElements.define('component-rr-sidebar', SideBarElement);
   }
 }
